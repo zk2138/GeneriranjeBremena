@@ -11,16 +11,17 @@ namespace GeneriranjeBremena
     {
         static void Main(string[] args)
         {
-            GeneriranjeBremena(5, 10, 1);
+            GeneriranjeBremena("poskus", 5, 10, 1);
         }
 
         /**
          * Funkcija za generiranje bremena glede na podane argumente
+         * fileName - ime datotek, ki jih generiramo
          * fileNum - stevilo datotek, ki jih zelimo generirati
          * fileSize - velikost datotek, ki jih zelimo generirati
          * sizeType - dolocitev velikosti (KB, MB, GB)
          */
-        static void GeneriranjeBremena(int fileNum, int fileSize, int sizeType)
+        static void GeneriranjeBremena(string fileName, int fileNum, int fileSize, int sizeType)
         {
 
             //string path = "../../files/poskus.txt";
@@ -53,7 +54,7 @@ namespace GeneriranjeBremena
             {
                 path = pathO;
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append(path).Append("poskus").Append(x).Append(".txt");
+                sb.Append(path).Append(fileName).Append(x).Append(".txt");
                 //Console.WriteLine(sb);
                 path = sb.ToString();
                 Console.WriteLine(path);
