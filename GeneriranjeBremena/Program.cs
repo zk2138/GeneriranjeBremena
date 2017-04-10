@@ -11,7 +11,7 @@ namespace GeneriranjeBremena
     {
         static void Main(string[] args)
         {
-            GeneriranjeBremena(1, 100, 1);
+            GeneriranjeBremena(1, 10, 1);
         }
 
         /**
