@@ -11,7 +11,7 @@ namespace GeneriranjeBremena
     {
         static void Main(string[] args)
         {
-            GeneriranjeBremena(1, 10, 1);
+            GeneriranjeBremena(5, 10, 1);
         }
 
         /**
@@ -23,7 +23,9 @@ namespace GeneriranjeBremena
         static void GeneriranjeBremena(int fileNum, int fileSize, int sizeType)
         {
 
-            string path = "../../files/poskus.txt"; ;
+            //string path = "../../files/poskus.txt";
+            string path = "../../files/";
+            string pathO = "../../files/";
             string randomS = "";
 
             int sizeTransform = 0;
@@ -43,63 +45,76 @@ namespace GeneriranjeBremena
             //    loopNum = 2;
             //}
 
-            try
+            
+            /**
+             * Zanka za generiranje zahtevanega števila datotek
+             */
+            for (int x = 0; x < fileNum; x++)
             {
-
-                // Delete the file if it exists.
-                if (File.Exists(path))
+                path = pathO;
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(path).Append("poskus").Append(x).Append(".txt");
+                //Console.WriteLine(sb);
+                path = sb.ToString();
+                Console.WriteLine(path);
+                try
                 {
-                    // Note that no lock is put on the
-                    // file and the possibility exists
-                    // that another process could do
-                    // something with it between
-                    // the calls to Exists and Delete.
-                    File.Delete(path);
-                }
-
-                // Create the file. 
-                //Sprazni vsebino datoteke ce ze obstaja
-                using (FileStream fs = File.Create(path))
-                {
-                    Byte[] info = new UTF8Encoding(true).GetBytes("");
-                    fs.Write(info, 0, info.Length);
-                    fs.Close();
-                }
-
-                //dodaja posamezne crke v datoteko dokler ni pravilne velikosti
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    for (int i = 0; i < sizeTransform; i++)
+                    // Delete the file if it exists.
+                    if (File.Exists(path))
                     {
-                        randomS = RandomString(1);
-                        //Byte[] info = new UTF8Encoding(true).GetBytes(randomS);
-                        // Add some information to the file.
-                        sw.Write(randomS);
+                        // Note that no lock is put on the
+                        // file and the possibility exists
+                        // that another process could do
+                        // something with it between
+                        // the calls to Exists and Delete.
+                        File.Delete(path);
                     }
 
-                    sw.Close();
+                    // Create the file. 
+                    //Sprazni vsebino datoteke ce ze obstaja
+                    using (FileStream fs = File.Create(path))
+                    {
+                        Byte[] info = new UTF8Encoding(true).GetBytes("");
+                        fs.Write(info, 0, info.Length);
+                        fs.Close();
+                    }
+
+                    //dodaja posamezne crke v datoteko dokler ni pravilne velikosti
+                    using (StreamWriter sw = File.AppendText(path))
+                    {
+                        for (int i = 0; i < sizeTransform; i++)
+                        {
+                            randomS = RandomString(1);
+                            //Byte[] info = new UTF8Encoding(true).GetBytes(randomS);
+                            // Add some information to the file.
+                            sw.Write(randomS);
+                        }
+
+                        sw.Close();
+                    }
+
+                    // Open the stream and read it back.
+                    //using (StreamReader sr = File.OpenText(path))
+                    //{
+                    //    string s = "";
+                    //    while ((s = sr.ReadLine()) != null)
+                    //    {
+                    //        Console.WriteLine(s);
+                    //    }
+                    //}
                 }
 
-                // Open the stream and read it back.
-                //using (StreamReader sr = File.OpenText(path))
-                //{
-                //    string s = "";
-                //    while ((s = sr.ReadLine()) != null)
-                //    {
-                //        Console.WriteLine(s);
-                //    }
-                //}
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+
+                //string randomS = RandomString(fileSize);
+                //System.Text.ASCIIEncoding.Unicode.GetByteCount(randomS);
+                //System.Text.ASCIIEncoding.ASCII.GetByteCount(randomS);
+                //Console.WriteLine(randomS);
             }
 
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            //string randomS = RandomString(fileSize);
-            //System.Text.ASCIIEncoding.Unicode.GetByteCount(randomS);
-            //System.Text.ASCIIEncoding.ASCII.GetByteCount(randomS);
-            //Console.WriteLine(randomS);
         }
 
         /**
